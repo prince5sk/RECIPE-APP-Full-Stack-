@@ -1,8 +1,10 @@
+import fetch from "node-fetch";
+
 const apiKey = process.env.SPOONACULAR_API_KEY;
 
 export const searchRecipes = async (searchTerm: string, page: number) => {
   if (!apiKey) {
-    throw new Error("API Key not found");
+    throw new Error("FATAL::API Key not found");
   } else {
     console.log("D::Spoonacular API key found");
   }

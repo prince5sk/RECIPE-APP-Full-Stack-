@@ -1,0 +1,9 @@
+{
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnType": false,
+        "editor.wordBasedSuggestions": false,
+        "linting.enabled": true,
+        "linting.flake8Enabled": true,
+    }
+}
