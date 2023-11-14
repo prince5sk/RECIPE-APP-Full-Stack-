@@ -21,7 +21,7 @@ def save_new_user(data):
         save_changes(new_user)
         response = {
             'status': 'OK',
-            'message': 'User registered successfully'
+            'message': 'User registered successfully',
         }
         return response, status.HTTP_201_CREATED
     else:
@@ -61,6 +61,24 @@ def user_exists(data):
     return False, None
 
 
+def generate_token(user):
+    try:
+        # generate the auth token
+        auth_token = user.encode_auth_token(user.id)
+        response = {
+            'status': 'OK',
+            'message': 'Successfully registered.',
+            'authorization': auth_token.decode()
+        }
+        return response, status.HTTP_201_CREATED
+    except Exception:
+        response = {
+            'status': 'FAIL',
+            'message': 'Some error occurred, please try again.'
+        }
+        return response, status.HTTP_401_UNAUTHORIZED
+
+
 def delete_user(user):
     db.session.delete(user)
     return db.session.commit()
@@ -68,4 +86,4 @@ def delete_user(user):
 
 def save_changes(data):
     db.session.add(data)
-    db.sesstion.commit()
+    db.session.commit()

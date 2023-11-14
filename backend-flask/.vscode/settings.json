@@ -5,5 +5,7 @@
         "editor.wordBasedSuggestions": false,
         "linting.enabled": true,
         "linting.flake8Enabled": true,
+        "linting.pycodestyleEnabled": false,
+        "python.formatting.provider": "autopep8"
     }
 }

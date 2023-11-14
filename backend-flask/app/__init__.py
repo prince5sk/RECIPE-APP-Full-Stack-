@@ -18,6 +18,8 @@ from flask import Blueprint
 # end-block:blueprints
 
 # block:controllers
+from app.main.controller.user_controller import api as user_ns
+from app.main.controller.auth_controller import api as auth_ns
 # end-block:controller
 
 # block:models
@@ -34,6 +36,8 @@ api = Api(blueprint,
           description='a recipe finder app')
 
 # add namespaces here
+api.add_namespace(user_ns, path='/user')
+api.add_namespace(auth_ns, path='/auth')
 
 app = create_app(os.getenv('ENV', 'dev'))
 app.register_blueprint(blueprint)

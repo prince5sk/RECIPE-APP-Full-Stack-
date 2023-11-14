@@ -8,7 +8,7 @@ from app.main.model.blacklist import BlacklistToken
 
 
 class User(db.Model):
-    """ User info """
+    """ User model to store user info """
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -31,6 +31,45 @@ class User(db.Model):
         
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password_hash, password)
+    
+    @staticmethod
+    def encode_auth_token(user_id):
+        """
+        Generates the Auth token 
+        :return: string
+        """
+        try:
+            payload = {
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=5),
+                'iat': datetime.datetime.utcnow(),
+                'sub': user_id
+            }
+            return jwt.encode(
+                payload,
+                key,
+                algorithm='HS256'
+            )
+        except Exception as e:
+            return e
+        
+    @staticmethod
+    def decode_auth_token(auth_token):
+        """
+        Decodes the Auth token
+        :param auth_token:
+        :return: integer|string
+        """
+        try:
+            payload = jwt.decode(auth_token, key, algorithms='HS256')
+            is_blacklisted_token = BlacklistToken.check_blacklist(auth_token)
+            if is_blacklisted_token:
+                return 'Token blacklisted. Please log in again.'
+            else:
+                return payload['sub']
+        except jwt.ExpiredSignatureError:
+            return 'Signature expired. Please log in again.'
+        except jwt.InvalidTokenError:
+            return 'Invalid token. Please log in again.'
     
     def __repr__(self):
         return "<User '{}'".format(self.username)

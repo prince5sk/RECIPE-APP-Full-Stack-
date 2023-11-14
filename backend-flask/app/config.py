@@ -24,10 +24,13 @@ class TestingConfig(Config):
     DEBUG = True
     TESTING = True
 
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
+    SQLALCHEMY_DATABASE_URI = \
+        "sqlite:///" + os.path.join(BASE_DIR, 'app_test.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):
+    DEBUG = False
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
