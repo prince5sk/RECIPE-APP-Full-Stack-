@@ -1,15 +1,9 @@
 # app/__init__
 
-import eventlet
-eventlet.monkey_patch()
-
 import os
-from dotenv import (load_dotenv, find_dotenv)
 from app.settings import BASE_DIR
 
 from app.main import create_app
-
-load_dotenv(find_dotenv(os.path.join(BASE_DIR , '.env')))
 
 from flask_restx import Api
 from flask import Blueprint
@@ -29,6 +23,7 @@ from app.main.model import (
 # end-block:models
 
 blueprint = Blueprint('api', __name__, url_prefix='/api')
+import app.main.controller.recipe_controller
 
 api = Api(blueprint,
           title='Flask Recipe API',
