@@ -18,7 +18,7 @@ from app.main.controller.auth_controller import api as auth_ns
 
 # block:models
 from app.main.model import (
-    user
+    user, blacklist, favorite_recipe
 )
 # end-block:models
 

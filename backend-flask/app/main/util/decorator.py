@@ -6,7 +6,7 @@ from flask_api import status as http_status
 from app.main.service.auth_service import Auth
 
 
-def token_requrired(f):
+def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
 

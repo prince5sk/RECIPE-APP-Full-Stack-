@@ -60,7 +60,7 @@ def getMultipleRecipes(ids: List[str]):
     url = recipe_base_url + 'informationBulk'
     params = {
         'apiKey': api_key,
-        'ids': ids.join(','),
+        'ids': ','.join(ids),
     }
 
     results = requests.get(url, params).json()
