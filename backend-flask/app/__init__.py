@@ -36,3 +36,6 @@ api.add_namespace(auth_ns, path='/auth')
 
 app = create_app(os.getenv('ENV', 'dev'))
 app.register_blueprint(blueprint)
+
+with app.app_context():
+    from app.main.routes import home
